@@ -35,20 +35,39 @@ export const SearchField = ({ setMovies }) => {
   };
 
   return(
-  <div className="flex">
-    <input
-      type="text"
-      onChange={(e) => handleSearch(e.target.value)}
-      placeholder="Search..."
-      onKeyDown={handleKeyPress}
-      value={searchValue}
-    />
-    <button type="button" onClick={handleSubmit}>Search</button>
-      <ul>
-        {suggestions && suggestions?.map((suggestion, index) => (
-          <li key={index} onClick={() => handleOnSuggestionClick(suggestion)}>{suggestion}</li>
-        ))}
-      </ul>
-  </div>
+    <>
+      <div className="block m-4">
+        <div className="flex justify-center">
+          <input
+          className="w-3/12 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5"
+          type="text"
+          onChange={(e) => handleSearch(e.target.value)}
+          placeholder="Search..."
+          onKeyDown={handleKeyPress}
+          value={searchValue}
+          />
+          <button 
+            type="button" 
+            onClick={handleSubmit}
+            className="my-auto ml-1 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center"
+          >
+            Search
+          </button>
+        </div>
+        <div className="z-10 flex justify-center">
+          <ul className="mr-20 rounded-b-lg w-3/12 text-sm text-gray-700 dark:text-gray-200">
+            {suggestions && suggestions?.map((suggestion, index) => (
+              <li
+                key={index}
+                onClick={() => handleOnSuggestionClick(suggestion)}
+                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >
+              {suggestion}
+              </li>
+              ))}
+          </ul>
+        </div>
+      </div>
+    </>
   )
 }
