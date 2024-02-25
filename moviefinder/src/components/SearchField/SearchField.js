@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { fetchMovies } from '../../actionCreator/fetchMovies';
+import { fetchAutoComplete, fetchMovies } from '../../actionCreator/fetchMovies';
 
 export const SearchField = ({ setMovies }) => {
 
@@ -46,7 +46,7 @@ export const SearchField = ({ setMovies }) => {
     <button type="button" onClick={handleSubmit}>Search</button>
       <ul>
         {suggestions && suggestions?.map((suggestion, index) => (
-          <li onClick={() => handleOnSuggestionClick(suggestion)}>{suggestion}</li>
+          <li key={index} onClick={() => handleOnSuggestionClick(suggestion)}>{suggestion}</li>
         ))}
       </ul>
   </div>
