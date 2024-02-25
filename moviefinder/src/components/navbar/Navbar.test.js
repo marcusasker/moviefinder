@@ -3,6 +3,6 @@ import { Navbar } from './Navbar';
 
 test('renders Navbar component', () => {
   render(<Navbar />);
-  const navbarElement = screen.getByText('MovieFinder');
+  const navbarElement = screen.getByText('Movie');
   expect(navbarElement).toBeInTheDocument();
 });

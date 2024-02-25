@@ -1,6 +1,7 @@
 import React from 'react'
 import { fallbackImg } from '../constants';
 
+// @TODO add loading spinner while fetching data
 export const MovieCard = ({ movie = {} }) => {
   const {
     id,
@@ -12,6 +13,8 @@ export const MovieCard = ({ movie = {} }) => {
     genres,
     runtime
   } = movie;
+  // @TODO add truncate or overflow hidden to the text so that it doesnt take up too much space
+  // @TODO sceleton loader for the overview, released and runtime and spinners for genre and popularity
   return(
     <div data-testid="movie-card" key={id} className="flex items-center bg-white border border-gray-200 rounded-lg flex-row hover:bg-gray-100">
       <img className="rounded h-auto max-h-96 max-w-full" src={poster || fallbackImg} alt="img" />
@@ -37,6 +40,7 @@ export const MovieCard = ({ movie = {} }) => {
   )
 };
 
+// @TODO could have a empty state message if there is nothing returned from the API 
 export const Results = ({ movies }) => {
   return (
     <div className="flex justify-center">

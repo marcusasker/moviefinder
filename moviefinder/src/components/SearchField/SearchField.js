@@ -1,34 +1,54 @@
 import React, { useState } from 'react'
 import { fetchAutoComplete, fetchMovies } from './actionCreators';
 
+
+// Component that handles each suggestion that is being rendered
+const ListItem = ({ suggestion, onClick }) => {
+  return(
+    <li
+      onClick={() => onClick(suggestion)}
+      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+    >
+      {suggestion}
+    </li>
+  )
+};
+
 export const SearchField = ({ setMovies }) => {
 
   const [searchValue, setSearchValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
-
+  // Function that handles the search and fetches the movies
+  // @TODO add some more error handling to check that the user doesnt use any special characters
   const handleSubmit = async () => {
     const movies = await fetchMovies(searchValue);
     setSuggestions([]);
     setMovies(movies);
-  }
+  };
 
+  // Function that fetches the suggestions
   const fetchSuggestions = async () => {
     const suggestions = await fetchAutoComplete(searchValue);
     setSuggestions(suggestions?.slice(0, 5));
-  }
+  };
 
+  // Function that handles the search input, wait for 3 or more characters to start fetching
+  // to be a little more efficient if the API is slow
   const handleSearch = (query) => {
     setSearchValue(query);
     query.length >= 3 && fetchSuggestions();
-  }
+  };
 
+  // Search is being made when pressing enter
+  // @TODO add a debounce to the search to avoid too many requests, make arrows work aswell
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       handleSubmit();
     }
   }
 
+  // Function that handles the suggestion click
   const handleOnSuggestionClick = (suggestion) => {
     setSearchValue(suggestion);
     handleSubmit();
@@ -58,13 +78,7 @@ export const SearchField = ({ setMovies }) => {
         <div className="z-10 flex justify-center">
           <ul className="mr-20 rounded-b-lg w-3/12 text-sm text-gray-700 dark:text-gray-200">
             {suggestions && suggestions?.map((suggestion, index) => (
-              <li
-                key={index}
-                onClick={() => handleOnSuggestionClick(suggestion)}
-                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >
-              {suggestion}
-              </li>
+              <ListItem key={index} suggestion={suggestion} onClick={handleOnSuggestionClick} />
               ))}
           </ul>
         </div>
