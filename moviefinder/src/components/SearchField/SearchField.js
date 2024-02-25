@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { fetchAutoComplete, fetchMovies } from '../../actionCreator/fetchMovies';
+import { fetchAutoComplete, fetchMovies } from './actionCreators';
 
 export const SearchField = ({ setMovies }) => {
 
@@ -14,7 +14,7 @@ export const SearchField = ({ setMovies }) => {
   }
 
   const fetchSuggestions = async () => {
-    const suggestions = searchValue && await fetchAutoComplete(searchValue);
+    const suggestions = await fetchAutoComplete(searchValue);
     setSuggestions(suggestions.slice(0, 5));
   }
 
