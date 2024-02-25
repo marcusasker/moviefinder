@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import './App.css';
 import { SearchField } from './components/SearchField/SearchField';
 import { Navbar } from './components/Navbar/Navbar';
 import { Results } from './components/Results/Results';
