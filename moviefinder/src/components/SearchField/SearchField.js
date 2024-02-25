@@ -15,7 +15,7 @@ export const SearchField = ({ setMovies }) => {
 
   const fetchSuggestions = async () => {
     const suggestions = await fetchAutoComplete(searchValue);
-    setSuggestions(suggestions.slice(0, 5));
+    setSuggestions(suggestions?.slice(0, 5));
   }
 
   const handleSearch = (query) => {
@@ -39,12 +39,13 @@ export const SearchField = ({ setMovies }) => {
       <div className="block m-4">
         <div className="flex justify-center">
           <input
-          className="w-3/12 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5"
-          type="text"
-          onChange={(e) => handleSearch(e.target.value)}
-          placeholder="Search..."
-          onKeyDown={handleKeyPress}
-          value={searchValue}
+            data-testid="search-field"
+            className="w-3/12 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5"
+            type="text"
+            onChange={(e) => handleSearch(e.target.value)}
+            placeholder="Search..."
+            onKeyDown={handleKeyPress}
+            value={searchValue}
           />
           <button 
             type="button" 
