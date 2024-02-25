@@ -7,31 +7,48 @@ export const SearchField = ({ setMovies }) => {
   const [suggestions, setSuggestions] = useState([]);
 
 
-  const getMovies = async () => {
+  const handleSubmit = async () => {
     const movies = await fetchMovies(searchValue);
+    setSuggestions([]);
     setMovies(movies);
   }
 
-  const fetchAutoComplete = async () => {
-    const suggestions = searchValue && await fetchMovies(searchValue, true);
-    setSuggestions(suggestions);
+  const fetchSuggestions = async () => {
+    const suggestions = searchValue && await fetchAutoComplete(searchValue);
+    setSuggestions(suggestions.slice(0, 5));
   }
 
-  const handleSearch = (e) => {
-    setSearchValue(e.target.value);
-    fetchAutoComplete();
+  const handleSearch = (query) => {
+    setSearchValue(query);
+    query.length >= 3 && fetchSuggestions();
   }
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSubmit();
+    }
+  }
+
+  const handleOnSuggestionClick = (suggestion) => {
+    setSearchValue(suggestion);
+    handleSubmit();
+  };
 
   return(
   <div className="flex">
-    <input type="text" onChange={(e) => handleSearch(e)} placeholder="Search..." />
-    <button type="button" onClick={getMovies}>Search</button>
-    <div>
-      suggestions
-      {suggestions?.map((suggestion, index) => (
-      <p key={index}>{suggestion}</p>
-      ))}
-    </div>
+    <input
+      type="text"
+      onChange={(e) => handleSearch(e.target.value)}
+      placeholder="Search..."
+      onKeyDown={handleKeyPress}
+      value={searchValue}
+    />
+    <button type="button" onClick={handleSubmit}>Search</button>
+      <ul>
+        {suggestions && suggestions?.map((suggestion, index) => (
+          <li onClick={() => handleOnSuggestionClick(suggestion)}>{suggestion}</li>
+        ))}
+      </ul>
   </div>
   )
 }
