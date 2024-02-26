@@ -9,4 +9,13 @@ export const TEST_MOVIE = {
   runtime: 120
 };
 
+export const TEST_SUGGESTIONS = [
+  "3 Day Test",
+  "El test",
+  "The Last Will and Testament of Rosalind Leigh",
+  "El testigo: Caín y Abel",
+  "Beta Test",
+];
+
+
 export const fallbackImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'

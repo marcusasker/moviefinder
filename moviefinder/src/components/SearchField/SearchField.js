@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { fetchAutoComplete, fetchMovies } from './actionCreators';
 
-
 // Component that handles each suggestion that is being rendered
 const ListItem = ({ suggestion, onClick }) => {
   return(
-    <li
+    <li data-testid="suggestion"
       onClick={() => onClick(suggestion)}
       className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
     >
@@ -18,10 +17,12 @@ export const SearchField = ({ setMovies }) => {
 
   const [searchValue, setSearchValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  console.log("searchvalue", searchValue)
 
   // Function that handles the search and fetches the movies
   // @TODO add some more error handling to check that the user doesnt use any special characters
   const handleSubmit = async () => {
+    console.log("triggered")
     const movies = await fetchMovies(searchValue);
     setSuggestions([]);
     setMovies(movies);
@@ -30,7 +31,7 @@ export const SearchField = ({ setMovies }) => {
   // Function that fetches the suggestions
   const fetchSuggestions = async () => {
     const suggestions = await fetchAutoComplete(searchValue);
-    setSuggestions(suggestions?.slice(0, 5));
+    setSuggestions(suggestions);
   };
 
   // Function that handles the search input, wait for 3 or more characters to start fetching

@@ -1,6 +1,6 @@
+
 import axios from "axios";
 
-// fetching movies from the API
 // @TODO add better error handling, right now its just console logging
 export const fetchMovies = async (query) => {
   const url = 'https://api.movies.dcts.se/rpc/movies_search?q=';

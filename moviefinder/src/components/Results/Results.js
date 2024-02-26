@@ -41,7 +41,7 @@ export const MovieCard = ({ movie = {} }) => {
 };
 
 // @TODO could have a empty state message if there is nothing returned from the API 
-export const Results = ({ movies }) => {
+export const Results = ({ movies = [] }) => {
   return (
     <div className="flex justify-center">
       <div className="grid grid-cols-2 gap-4 mx-8">
