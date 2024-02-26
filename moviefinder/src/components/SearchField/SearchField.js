@@ -17,13 +17,11 @@ export const SearchField = ({ setMovies }) => {
 
   const [searchValue, setSearchValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  console.log("searchvalue", searchValue)
 
   // Function that handles the search and fetches the movies
   // @TODO add some more error handling to check that the user doesnt use any special characters
-  const handleSubmit = async () => {
-    console.log("triggered")
-    const movies = await fetchMovies(searchValue);
+  const handleSubmit = async (query) => {
+    const movies = await fetchMovies(query || searchValue);
     setSuggestions([]);
     setMovies(movies);
   };
@@ -31,7 +29,8 @@ export const SearchField = ({ setMovies }) => {
   // Function that fetches the suggestions
   const fetchSuggestions = async () => {
     const suggestions = await fetchAutoComplete(searchValue);
-    setSuggestions(suggestions);
+    const suggestionsArray = suggestions?.slice(0, 5);
+    setSuggestions(suggestionsArray);
   };
 
   // Function that handles the search input, wait for 3 or more characters to start fetching
@@ -52,7 +51,7 @@ export const SearchField = ({ setMovies }) => {
   // Function that handles the suggestion click
   const handleOnSuggestionClick = (suggestion) => {
     setSearchValue(suggestion);
-    handleSubmit();
+    handleSubmit(suggestion);
   };
 
   return(
@@ -70,7 +69,7 @@ export const SearchField = ({ setMovies }) => {
           />
           <button 
             type="button" 
-            onClick={handleSubmit}
+            onClick={() => handleSubmit(searchValue)}
             className="my-auto ml-1 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center"
           >
             Search

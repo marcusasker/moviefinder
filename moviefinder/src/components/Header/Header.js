@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Navbar = () => {
+export const Header = () => {
   return (
     <div className="flex p-2 justify-center">
       <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">

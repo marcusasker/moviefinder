@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { Navbar } from '../Navbar';
+import { Header } from '../Header';
 
-describe('Navbar', () => {
-  test('renders Navbar component', () => {
-    render(<Navbar />);
+describe('Header', () => {
+  test('renders Header component', () => {
+    render(<Header />);
     const navbarElement = screen.getByText('Movie');
     expect(navbarElement).toBeInTheDocument();
   });
